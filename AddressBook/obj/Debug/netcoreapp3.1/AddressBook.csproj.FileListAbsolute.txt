@@ -1,0 +1,13 @@
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.exe
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.deps.json
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.runtimeconfig.json
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.runtimeconfig.dev.json
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.dll
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\bin\Debug\netcoreapp3.1\AddressBook.pdb
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.csproj.AssemblyReference.cache
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.AssemblyInfoInputs.cache
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.AssemblyInfo.cs
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.csproj.CoreCompileInputs.cache
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.dll
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.pdb
+C:\Users\Sona G\source\repos\AddressBook\AddressBook\obj\Debug\netcoreapp3.1\AddressBook.genruntimeconfig.cache
