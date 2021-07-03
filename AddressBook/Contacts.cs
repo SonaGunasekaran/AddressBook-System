@@ -18,8 +18,10 @@ namespace AddressBook
         }
         public static List<Person> list = new List<Person>();
 
-        public static void ReadInputs()
+        
+          public static void ReadInputs()
         {
+
             Person person = new Person();
             Console.WriteLine("Enter your First Name :");
             person.firstName = Console.ReadLine();
@@ -41,19 +43,48 @@ namespace AddressBook
 
             Console.WriteLine("Enter your Email Address :");
             person.email = Console.ReadLine();
-
-            
-            Console.WriteLine("Firstname you entered: " + person.firstName);
-            Console.WriteLine("Lastname you entered: " + person.lastName);
-            Console.WriteLine("Address you entered: " + person.address);
-            Console.WriteLine("State you entered: " + person.state);
-
-            Console.WriteLine("Zipcode you entered: " + person.zip);
-            Console.WriteLine("Phone NUmber you entered: " + person.phnNum);
-            Console.WriteLine("Email you entered: " + person.lastName);
+            list.Add(person);
+            ListPeople();
             Console.ReadLine();
         }
+
+        
+
+            private static void ListPeople()
+            {
+                if (list.Count == 0)
+                {
+                    Console.WriteLine("Your address book is empty. Press any key to continue.");
+                    Console.ReadKey();
+                    return;
+                }
+                Console.WriteLine("Here are the current people in your address book:\n");
+                foreach (var value in list)
+                {
+                    GetInfo(value);
+                }
+               
+            }
+
+
+
+        
+            static void GetInfo(Person value)
+            {
+
+                Console.WriteLine("Firstname you entered: " + value.firstName);
+                Console.WriteLine("Lastname you entered: " + value.lastName);
+                Console.WriteLine("Address you entered: " + value.address);
+                Console.WriteLine("State you entered: " + value.state);
+
+                Console.WriteLine("Zipcode you entered: " + value.zip);
+                Console.WriteLine("Phone NUmber you entered: " + value.phnNum);
+                Console.WriteLine("Email you entered: " + value.email);
+
+            }
+            
+        }
     }
-}
+
 
 
