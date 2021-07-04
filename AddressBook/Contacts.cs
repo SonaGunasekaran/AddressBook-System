@@ -16,9 +16,35 @@ namespace AddressBook
             public int phnNum { get; set; }
             public string email { get; set; }
         }
+        //list holds variables in a specific order
         public static List<Person> list = new List<Person>();
+         
+        //Add contacts into the list
+        public static void AddContacts()
+        {
+            
+            Console.WriteLine("Enter an option:");
+            Console.WriteLine("1.Add New Contact \n2.Exit");
 
-        
+            int choice = (Convert.ToInt32(Console.ReadLine()));
+
+
+            switch (choice)
+            {
+                case 1:
+                    Contacts.ReadInputs();
+                    break;
+                
+                default:
+
+                    Console.WriteLine("Exit");
+                    break;
+            }
+
+        }
+    
+
+        //Get input from user
           public static void ReadInputs()
         {
 
@@ -43,13 +69,14 @@ namespace AddressBook
 
             Console.WriteLine("Enter your Email Address :");
             person.email = Console.ReadLine();
+            
             list.Add(person);
             ListPeople();
             Console.ReadLine();
-        }
+          }
 
         
-
+           //view the contacts in a list
             private static void ListPeople()
             {
                 if (list.Count == 0)
@@ -58,7 +85,9 @@ namespace AddressBook
                     Console.ReadKey();
                     return;
                 }
+                
                 Console.WriteLine("Here are the current people in your address book:\n");
+                //Access the elements in the list
                 foreach (var value in list)
                 {
                     GetInfo(value);
@@ -67,7 +96,7 @@ namespace AddressBook
             }
 
 
-
+        // Display the values
         
             static void GetInfo(Person value)
             {
@@ -76,15 +105,15 @@ namespace AddressBook
                 Console.WriteLine("Lastname you entered: " + value.lastName);
                 Console.WriteLine("Address you entered: " + value.address);
                 Console.WriteLine("State you entered: " + value.state);
-
                 Console.WriteLine("Zipcode you entered: " + value.zip);
                 Console.WriteLine("Phone NUmber you entered: " + value.phnNum);
                 Console.WriteLine("Email you entered: " + value.email);
+                AddContacts();
 
             }
             
-        }
     }
+}
 
 
 
