@@ -18,7 +18,7 @@ namespace AddressBook
                         Contacts.ReadInputs();
                       break;
                     case 2:
-                        Contacts.ReadInputs();
+                        Contacts.AddContacts();
                        break;
                     default:
 
