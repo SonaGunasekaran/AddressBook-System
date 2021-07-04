@@ -17,9 +17,9 @@ namespace AddressBook
             public string email { get; set; }
         }
         //list holds variables in a specific order
-       
+        // public static List<Person> list = new List<Person>();
         public static List<Person> list;
-        // Creating a dictionary
+
         public static Dictionary <string, List<Person>> dictionary =new Dictionary<string, List<Person>>();
 
         
@@ -60,7 +60,7 @@ namespace AddressBook
 
 
         //Get input from user
-        public  static void ReadInputs()
+        public static void ReadInputs()
         {
             Person person = new Person();
             Console.WriteLine("Enter your Address Book Name: ");
@@ -68,13 +68,12 @@ namespace AddressBook
             list = new List<Person>();
             if (!dictionary.ContainsKey(bookName))
             {
-                dictionary.Add(bookName, list);
 
+                dictionary.Add("bookName", list);
             }
             else
             {
                 Console.WriteLine("Address Book is already exists!");
-                
             }
             
             Console.WriteLine("Enter number of contacts you want to add :");
@@ -105,17 +104,17 @@ namespace AddressBook
                   list.Add(person);
 
             }
-             
+             //dictionary.Add("bookName", list);
             ListPeople();
             Console.ReadLine();
         }
         
 
 
-        //view the contacts in a dictionary
+        //view the contacts in a list
         private static void ListPeople()
         {
-            if (dictionary.Count == 0)
+            if (list.Count == 0)
             {
                 Console.WriteLine("Your address book is empty. Press any key to continue.");
                 Console.ReadKey();
@@ -123,7 +122,7 @@ namespace AddressBook
             }
 
             Console.WriteLine("Here are the current people in your address book:\n");
-            //Access the elements in the dictionary by key
+            //Access the elements in the list
             foreach (KeyValuePair<string, List<Person>> x in dictionary)
             {
                 foreach(var value in x.Value)

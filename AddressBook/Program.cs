@@ -6,7 +6,7 @@ namespace AddressBook
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("1.Create a List \n2.Add New Member\n3.Edit Contact");
+            Console.WriteLine("1.Create a List \n2.Add New Member\n3.Edit Contact\n4.Delete contact\n5.Create Multiple Contact\n6.Mutiple Address Book");
             Console.WriteLine("Enter an option:");
 
             int choice = (Convert.ToInt32(Console.ReadLine()));
@@ -26,7 +26,13 @@ namespace AddressBook
                          case 4:
                         Contacts.DeleteDetails();
                          break;
-                        default:
+                         case 5:
+                         Contacts.ReadInputs();
+                         break;
+                       case 6:
+                       Contacts.ReadInputs();
+                        break;
+                      default:
                          Console.WriteLine("Exit");
                          break;
            
