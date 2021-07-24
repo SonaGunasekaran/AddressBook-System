@@ -12,6 +12,7 @@ namespace AddressBook
             public string firstName { get; set; }
             public string lastName { get; set; }
             public string address { get; set; }
+            public string city { get; set; }
             public string state { get; set; }
             public int zip { get; set; }
             public int phnNum { get; set; }
@@ -24,7 +25,7 @@ namespace AddressBook
         //Add contacts into the list
         public static void AddContacts()
         {
-            Console.WriteLine("1.Add New Contact \n2.List the contacts\n3.Edit datails\n4.Delete Contact");
+            Console.WriteLine("1.Add New Contact \n2.List the contacts\n3.Edit datails\n4.Delete Contact\n5.Search by City or state");
             Console.WriteLine("Enter an option:");
             int choice = (Convert.ToInt32(Console.ReadLine()));
             switch (choice)
@@ -41,6 +42,9 @@ namespace AddressBook
                 case 4:
                     Contacts.DeleteDetails();
                     break;
+                case 5:
+                    Contacts.SearchCityOrState(dictionary);
+                    break;
                 default:
                     Console.WriteLine("Exit");
                     break;
@@ -51,8 +55,6 @@ namespace AddressBook
         {
             Person person = new Person();
             string bookName;
-            //Console.WriteLine("Enter your Address Book Name: ");
-            //string bookName = Console.ReadLine();
             list = new List<Person>();
             while (true)
             {
@@ -95,7 +97,9 @@ namespace AddressBook
                 person.lastName = Console.ReadLine();
                 Console.WriteLine("Enter your Address :");
                 person.address = Console.ReadLine();
-                Console.WriteLine("Enter your State :");
+                Console.WriteLine("Enter your city :");
+                person.city = Console.ReadLine();
+                Console.WriteLine("Enter your state:");
                 person.state = Console.ReadLine();
                 Console.WriteLine("Enter your Zipcode :");
                 person.zip = Convert.ToInt32(Console.ReadLine());
@@ -118,7 +122,6 @@ namespace AddressBook
                 Console.ReadKey();
                 return;
             }
-
             Console.WriteLine("Here are the current people in your address book:\n");
             //Access the elements in the dictionary by key
             foreach (KeyValuePair<string, List<Person>> x in dictionary)
@@ -136,11 +139,25 @@ namespace AddressBook
             Console.WriteLine("Firstname you entered: " + value.firstName);
             Console.WriteLine("Lastname you entered: " + value.lastName);
             Console.WriteLine("Address you entered: " + value.address);
+            Console.WriteLine("Address you entered: " + value.city);
             Console.WriteLine("State you entered: " + value.state);
             Console.WriteLine("Zipcode you entered: " + value.zip);
             Console.WriteLine("Phone Number you entered: " + value.phnNum);
             Console.WriteLine("Email you entered: " + value.email);
             AddContacts();
+        }
+        //search By city or state name
+        public static void SearchCityOrState(Dictionary<string, List<Person>> dictionary)
+        {
+            string name;
+            Console.WriteLine("Enter City or State name to search:");
+            name = Console.ReadLine();
+            
+            foreach (var l in dictionary)
+            { 
+               var search = list.Find(x => x.city.Equals(name) || x.state.Equals(name));
+                GetInfo(search);
+            }
         }
         //To edit the details in address book
         public static void EditDetails()
