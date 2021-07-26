@@ -50,6 +50,10 @@ namespace AddressBook
                     Contacts contact = new Contacts();
                     contact.ViewCityOrStateName();
                     break;
+                case 7:
+                    Contacts contact1 = new Contacts();
+                    contact1.CountCityOrState();
+                    break;
                 default:
                     Console.WriteLine("Exit");
                     break;
@@ -59,7 +63,7 @@ namespace AddressBook
         public static void ReadInputs()
         {
             string bookName;
-            
+
             while (true)
             {
                 Console.WriteLine("Enter your Address Book Name: ");
@@ -158,7 +162,6 @@ namespace AddressBook
             string name;
             Console.WriteLine("Enter City or State name to search:");
             name = Console.ReadLine();
-
             foreach (var l in dictionary)
             {
                 var search = list.Find(x => x.city.Equals(name) || x.state.Equals(name));
@@ -181,9 +184,9 @@ namespace AddressBook
             }
             else
             {
-                foreach (KeyValuePair<string, List<Person>> dict in dictionary)
+                foreach (KeyValuePair<string, List<Person>> view in dictionary)
                 {
-                    viewCityState = dict.Value.FindAll(x => x.firstName.Equals(personName) && x.state.Equals(name) || x.city.Equals(name) && x.firstName.Equals(personName));
+                    viewCityState = view.Value.FindAll(x => x.firstName.Equals(personName) && x.state.Equals(name) || x.city.Equals(name) && x.firstName.Equals(personName));
                 }
                 if (viewCityState.Count > 0)
                 {
@@ -195,6 +198,39 @@ namespace AddressBook
                 else
                 {
                     Console.WriteLine("No such Persons exists");
+                }
+            }
+        }
+        public void CountCityOrState()
+        {
+            string name;
+            int count = 0;
+            Console.WriteLine("Enter City or State name to View Contacts:");
+            name = Console.ReadLine();
+
+            if (dictionary.Count == 0)
+            {
+                Console.WriteLine("Your address book is empty");
+
+            }
+            else
+            {
+                foreach (KeyValuePair<string, List<Person>> view in dictionary)
+                {
+                    viewCityState = view.Value.FindAll(x => x.city.Equals(name) || x.state.Equals(name));
+                }
+                if (viewCityState.Count > 0)
+                {
+                    foreach (var x in viewCityState)
+                    {
+                        GetInfo(x);
+                    }
+                    count = viewCityState.Count;
+                    Console.WriteLine($"The total persons in {name} are : {count}");
+                }
+                else
+                {
+                    Console.WriteLine("You have entered wrong details");
                 }
             }
         }
