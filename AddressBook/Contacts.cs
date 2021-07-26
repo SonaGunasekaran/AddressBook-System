@@ -21,6 +21,7 @@ namespace AddressBook
         //list holds variables in a specific order
         public static List<Person> list;
         private List<Person> viewCityState;
+        private static List<Person> Sortlist;
         // Creating a dictionary
         public static Dictionary<string, List<Person>> dictionary = new Dictionary<string, List<Person>>();
         //Add contacts into the list
@@ -53,6 +54,9 @@ namespace AddressBook
                 case 7:
                     Contacts contact1 = new Contacts();
                     contact1.CountCityOrState();
+                    break;
+                case 8:
+                    Contacts.SortData(dictionary);
                     break;
                 default:
                     Console.WriteLine("Exit");
@@ -225,8 +229,9 @@ namespace AddressBook
                     {
                         GetInfo(x);
                     }
+                    //count the city and states
                     count = viewCityState.Count;
-                    Console.WriteLine("The total persons in "+ " " +name +"are" +" "+count);
+                    Console.WriteLine("The total persons in " + " " + name + "are" + " " + count);
                 }
                 else
                 {
@@ -234,6 +239,7 @@ namespace AddressBook
                 }
             }
         }
+
         //To edit the details in address book
         public static void EditDetails()
         {
@@ -269,8 +275,39 @@ namespace AddressBook
                 }
             }
         }
+        
+        public static void SortData(Dictionary<string, List<Person>> dictionary)
+        {
+            //sorted list to display values
+            Sortlist = new List<Person>();
+            foreach (KeyValuePair<string, List<Person>> s in dictionary)
+            {
+                foreach (var i in s.Value)
+                {
+                    Sortlist.Add(i);
+                }
+            }
+            //sort based on zip
+            foreach (var i in Sortlist.OrderBy(p => p.zip))
+            {
+                GetInfo(i);
+            }
+            //sort based on state
+            foreach (var i in Sortlist.OrderBy(p=> p.state))
+            {
+                GetInfo(i);
+            }
+            //sort based on city
+            foreach (var i in Sortlist.OrderBy(p => p.city))
+            {
+                GetInfo(i);
+            }
+
+        }
     }
 }
+
+
 
 
 
