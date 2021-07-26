@@ -20,12 +20,13 @@ namespace AddressBook
         }
         //list holds variables in a specific order
         public static List<Person> list;
+        private List<Person> viewCityState;
         // Creating a dictionary
         public static Dictionary<string, List<Person>> dictionary = new Dictionary<string, List<Person>>();
         //Add contacts into the list
         public static void AddContacts()
         {
-            Console.WriteLine("1.Add New Contact \n2.List the contacts\n3.Edit datails\n4.Delete Contact\n5.Search by City or state");
+            Console.WriteLine("1.Add New Contact \n2.List the contacts\n3.Edit datails\n4.Delete Contact\n5.Search by City or state\n6.View City Or State");
             Console.WriteLine("Enter an option:");
             int choice = (Convert.ToInt32(Console.ReadLine()));
             switch (choice)
@@ -45,6 +46,10 @@ namespace AddressBook
                 case 5:
                     Contacts.SearchCityOrState(dictionary);
                     break;
+                case 6:
+                    Contacts contact = new Contacts();
+                    contact.ViewCityOrStateName();
+                    break;
                 default:
                     Console.WriteLine("Exit");
                     break;
@@ -53,9 +58,8 @@ namespace AddressBook
         //Get input from user
         public static void ReadInputs()
         {
-            Person person = new Person();
             string bookName;
-            list = new List<Person>();
+            
             while (true)
             {
                 Console.WriteLine("Enter your Address Book Name: ");
@@ -75,12 +79,14 @@ namespace AddressBook
                 {
                     break;
                 }
-                
+
             }
             Console.WriteLine("Enter number of contacts you want to add :");
             int num = Convert.ToInt32(Console.ReadLine());
             for (int i = 1; i <= num; i++)
             {
+                Person person = new Person();
+                list = new List<Person>();
                 Console.WriteLine("Enter your First Name :");
                 string firstName = Console.ReadLine();
                 Person result = list.Find(x => x.firstName.Equals(firstName));
@@ -152,11 +158,44 @@ namespace AddressBook
             string name;
             Console.WriteLine("Enter City or State name to search:");
             name = Console.ReadLine();
-            
+
             foreach (var l in dictionary)
-            { 
-               var search = list.Find(x => x.city.Equals(name) || x.state.Equals(name));
+            {
+                var search = list.Find(x => x.city.Equals(name) || x.state.Equals(name));
                 GetInfo(search);
+            }
+        }
+        //View contacts either by city or state name
+        public void ViewCityOrStateName()
+        {
+            string name, personName;
+            viewCityState = new List<Person>();
+            Console.WriteLine("Enter City or State name to View Contacts:");
+            name = Console.ReadLine();
+            Console.WriteLine("Enter person name to View Contacts:");
+            personName = Console.ReadLine();
+            if (dictionary.Count == 0)
+            {
+                Console.WriteLine("Your address book is empty");
+
+            }
+            else
+            {
+                foreach (KeyValuePair<string, List<Person>> dict in dictionary)
+                {
+                    viewCityState = dict.Value.FindAll(x => x.firstName.Equals(personName) && x.state.Equals(name) || x.city.Equals(name) && x.firstName.Equals(personName));
+                }
+                if (viewCityState.Count > 0)
+                {
+                    foreach (var x in viewCityState)
+                    {
+                        GetInfo(x);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No such Persons exists");
+                }
             }
         }
         //To edit the details in address book
