@@ -226,7 +226,7 @@ namespace AddressBook
                         GetInfo(x);
                     }
                     count = viewCityState.Count;
-                    Console.WriteLine($"The total persons in {name} are : {count}");
+                    Console.WriteLine("The total persons in "+ " " +name +"are" +" "+count);
                 }
                 else
                 {
