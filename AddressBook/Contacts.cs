@@ -134,7 +134,7 @@ namespace AddressBook
             }
             Console.WriteLine("Here are the current people in your address book:\n");
             //Access the elements in the dictionary by key
-            foreach (KeyValuePair<string, List<Person>> x in dictionary)
+            foreach (KeyValuePair<string, List<Person>> x in dictionary.OrderBy(x => x.Key))
             {
                 foreach (var value in x.Value)
                 {
@@ -226,7 +226,7 @@ namespace AddressBook
                         GetInfo(x);
                     }
                     count = viewCityState.Count;
-                    Console.WriteLine($"The total persons in {name} are : {count}");
+                    Console.WriteLine("The total persons in "+ " " +name +"are" +" "+count);
                 }
                 else
                 {
@@ -237,7 +237,7 @@ namespace AddressBook
         //To edit the details in address book
         public static void EditDetails()
         {
-            Console.WriteLine("Enter your first to edit details:");
+            Console.WriteLine("Enter your firstName to edit details:");
             string name = Console.ReadLine();
             foreach (var value in list)
             {
@@ -257,7 +257,7 @@ namespace AddressBook
         // Delete details in address book
         public static void DeleteDetails()
         {
-            Console.WriteLine("Enter your first to delete contact:");
+            Console.WriteLine("Enter your firstName to delete contact:");
             string name = Console.ReadLine();
             foreach (var value in list)
             {
