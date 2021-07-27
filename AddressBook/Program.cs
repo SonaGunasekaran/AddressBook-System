@@ -6,9 +6,10 @@ namespace AddressBook
     {
         static void Main(string[] args)
         {
-           
-
-                Console.WriteLine("1.Create a List \n2.Add New Member\n3.Edit Contact\n4.Delete contact\n5.Create Multiple Contact\n6.Mutiple Address Book\n7.Check Duplicates\n8.Search Person");
+            bool Continue = true;
+            while (Continue)
+            {
+                Console.WriteLine("1.Add New Contact \n2.List the contacts\n3.Edit datails\n4.Delete Contact\n5.Search by City or state\n6.View City or State\n7.Count City or State\n8.Sort Values\n9.Write into File");
                 Console.WriteLine("Enter an option:");
                 int choice = (Convert.ToInt32(Console.ReadLine()));
                 switch (choice)
@@ -17,7 +18,7 @@ namespace AddressBook
                         Contacts.ReadInputs();
                         break;
                     case 2:
-                        Contacts.AddContacts();
+                        Contacts.ListPeople();
                         break;
                     case 3:
                         Contacts.EditDetails();
@@ -26,16 +27,25 @@ namespace AddressBook
                         Contacts.DeleteDetails();
                         break;
                     case 5:
-                        Contacts.ReadInputs();
+                        Contacts.SearchCityOrState();
                         break;
                     case 6:
-                        Contacts.ReadInputs();
+                        Contacts contact = new Contacts();
+                        contact.ViewCityOrStateName();
                         break;
                     case 7:
-                        Contacts.ReadInputs();
+                        Contacts contact1 = new Contacts();
+                        contact1.CountCityOrState();
                         break;
                     case 8:
-                        Contacts.ReadInputs();
+                        Contacts.SortValues();
+                        break;
+                    case 9:
+                        Contacts file = new Contacts();
+                        file.WriteIntoFile();
+                        break;
+                    case 0:
+                        Continue = false;
                         break;
                     default:
                         Console.WriteLine("Exit");
@@ -44,4 +54,5 @@ namespace AddressBook
             }
         }
     }
+}
 

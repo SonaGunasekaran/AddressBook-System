@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.IO;
 
 namespace AddressBook
 {
@@ -24,45 +25,6 @@ namespace AddressBook
         private static List<Person> Sortlist;
         // Creating a dictionary
         public static Dictionary<string, List<Person>> dictionary = new Dictionary<string, List<Person>>();
-        //Add contacts into the list
-        public static void AddContacts()
-        {
-            Console.WriteLine("1.Add New Contact \n2.List the contacts\n3.Edit datails\n4.Delete Contact\n5.Search by City or state\n6.View City Or State");
-            Console.WriteLine("Enter an option:");
-            int choice = (Convert.ToInt32(Console.ReadLine()));
-            switch (choice)
-            {
-                case 1:
-                    Contacts.ReadInputs();
-                    break;
-                case 2:
-                    Contacts.ListPeople();
-                    break;
-                case 3:
-                    Contacts.EditDetails();
-                    break;
-                case 4:
-                    Contacts.DeleteDetails();
-                    break;
-                case 5:
-                    Contacts.SearchCityOrState(dictionary);
-                    break;
-                case 6:
-                    Contacts contact = new Contacts();
-                    contact.ViewCityOrStateName();
-                    break;
-                case 7:
-                    Contacts contact1 = new Contacts();
-                    contact1.CountCityOrState();
-                    break;
-                case 8:
-                    Contacts.SortData(dictionary);
-                    break;
-                default:
-                    Console.WriteLine("Exit");
-                    break;
-            }
-        }
         //Get input from user
         public static void ReadInputs()
         {
@@ -128,7 +90,7 @@ namespace AddressBook
             Console.ReadLine();
         }
         //view the contacts in a dictionary
-        private static void ListPeople()
+        public static void ListPeople()
         {
             if (dictionary.Count == 0)
             {
@@ -158,18 +120,20 @@ namespace AddressBook
             Console.WriteLine("Zipcode you entered: " + value.zip);
             Console.WriteLine("Phone Number you entered: " + value.phnNum);
             Console.WriteLine("Email you entered: " + value.email);
-            AddContacts();
         }
         //search By city or state name
-        public static void SearchCityOrState(Dictionary<string, List<Person>> dictionary)
+        public static void SearchCityOrState()
         {
             string name;
             Console.WriteLine("Enter City or State name to search:");
             name = Console.ReadLine();
-            foreach (var l in dictionary)
+            foreach (KeyValuePair<string, List<Person>> n in dictionary)
             {
                 var search = list.Find(x => x.city.Equals(name) || x.state.Equals(name));
-                GetInfo(search);
+                foreach (var l in dictionary)
+                {
+                    GetInfo(search);
+                }
             }
         }
         //View contacts either by city or state name
@@ -271,12 +235,11 @@ namespace AddressBook
                 {
                     list.Remove(value);
                     Console.WriteLine("The contact you entered is deleted successfully");
-                    AddContacts();
                 }
             }
         }
         
-        public static void SortData(Dictionary<string, List<Person>> dictionary)
+        public static void SortValues()
         {
             //sorted list to display values
             Sortlist = new List<Person>();
@@ -303,6 +266,45 @@ namespace AddressBook
                 GetInfo(i);
             }
 
+        }
+        //write the data into the file
+        public void WriteIntoFile()
+        {
+            string filepath = @"C:\Users\Sona G\source\repos\AddressBook\AddressBook\Filetest.txt";
+            if (File.Exists(filepath))
+            {
+                StreamWriter writer = new StreamWriter(filepath);
+                foreach (KeyValuePair<string, List<Person>> i in dictionary)
+                { 
+                    writer.WriteLine("AddressBook Name:" + i.Key);
+                    foreach (var list in i.Value)
+                    {
+                        string s = "Name:" + list.firstName + " " + list.lastName + " Address:" + list.address + " City:" + list.city + " State:" + list.state + " Zipcode:" + list.zip + " Ph.No:" + list.phnNum;
+                        writer.WriteLine(s);
+                    }
+                    writer.WriteLine();
+                }
+                writer.Close();
+                ReadFromFile(filepath);
+            }
+            else
+            {
+                Console.WriteLine("File not exists");
+            }
+        }
+        //read the data from the file 
+        public void ReadFromFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                //read all the data in the single text
+                string text = File.ReadAllText(filePath);
+                Console.WriteLine(text);
+            }
+            else
+            {
+                Console.WriteLine("File not exist");
+            }
         }
     }
 }
