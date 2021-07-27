@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using System.IO;
+using System.Globalization;
 
 namespace AddressBook
 {
@@ -169,6 +171,7 @@ namespace AddressBook
                 }
             }
         }
+        //count by count or state
         public void CountCityOrState()
         {
             string name;
@@ -203,7 +206,6 @@ namespace AddressBook
                 }
             }
         }
-
         //To edit the details in address book
         public static void EditDetails()
         {
@@ -238,7 +240,7 @@ namespace AddressBook
                 }
             }
         }
-        
+        //Sort the entries by values
         public static void SortValues()
         {
             //sorted list to display values
@@ -256,7 +258,7 @@ namespace AddressBook
                 GetInfo(i);
             }
             //sort based on state
-            foreach (var i in Sortlist.OrderBy(p=> p.state))
+            foreach (var i in Sortlist.OrderBy(p => p.state))
             {
                 GetInfo(i);
             }
@@ -268,18 +270,19 @@ namespace AddressBook
 
         }
         //write the data into the file
+        string filepath = @"C:\Users\Sona G\source\repos\AddressBook\AddressBook\Filetest.txt";
+        string csvFile = @"C:\Users\Sona G\source\repos\AddressBook\AddressBook\FileCsvTest.csv";
         public void WriteIntoFile()
         {
-            string filepath = @"C:\Users\Sona G\source\repos\AddressBook\AddressBook\Filetest.txt";
             if (File.Exists(filepath))
             {
                 StreamWriter writer = new StreamWriter(filepath);
                 foreach (KeyValuePair<string, List<Person>> i in dictionary)
-                { 
+                {
                     writer.WriteLine("AddressBook Name:" + i.Key);
                     foreach (var list in i.Value)
                     {
-                        string s = "Name:" + list.firstName + " " + list.lastName + " Address:" + list.address + " City:" + list.city + " State:" + list.state + " Zipcode:" + list.zip + " Ph.No:" + list.phnNum;
+                        string s = "Name:" + list.firstName + " " + list.lastName + " Address:" + list.address + " City:" + list.city + " State:" + list.state + " Zipcode:" + list.zip + " Ph.No:" + list.phnNum + " Email: " + list.email;
                         writer.WriteLine(s);
                     }
                     writer.WriteLine();
@@ -305,6 +308,72 @@ namespace AddressBook
             {
                 Console.WriteLine("File not exist");
             }
+        }
+        public void WriteCsvFile()
+        {
+            using (StreamWriter writer = new StreamWriter(csvFile))
+            {
+                using (var csvWriter = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csvWriter.WriteField("AddressBookName");
+                    csvWriter.WriteHeader<Person>();
+                    csvWriter.NextRecord();
+
+                    foreach (KeyValuePair<string, List<Person>> i in dictionary)
+                    {
+                        string dict = i.Key;
+                        foreach (var list in i.Value)
+                        {
+                            csvWriter.WriteField(dict);
+                            csvWriter.WriteRecord(list);
+                            csvWriter.NextRecord();
+                        }
+                    }
+                }
+            }
+        }
+        public Dictionary<string, List<Person>> ReadFromCsvFile()
+        {
+            string[] data = File.ReadAllLines(csvFile);
+            Dictionary<string, List<Person>> records = new Dictionary<string, List<Person>>();
+            List<Person> list;
+            Person person = new Person();
+            // skip the header
+            foreach (string d in data.Skip(1))
+            {
+                string[] fields = d.Split(",");
+                //if no records available then create a list
+                if (records.ContainsKey(fields[0]))
+                {
+                    list = records[fields[0]];
+                    person.firstName = fields[0];
+                    person.lastName = fields[1];
+                    person.address = fields[2];
+                    person.city = fields[3];
+                    person.state = fields[4];
+                    person.zip = Convert.ToInt32(fields[5]);
+                    person.phnNum = Convert.ToInt32(fields[6]);
+                    person.email = fields[7];
+                    list.Add(person);
+                }
+                //add in existing list
+                else
+                {
+                    list = new List<Person>();
+                    list = records[fields[0]];
+                    person.firstName = fields[0];
+                    person.lastName = fields[1];
+                    person.address = fields[2];
+                    person.city = fields[3];
+                    person.state = fields[4];
+                    person.zip = Convert.ToInt32(fields[5]);
+                    person.phnNum = Convert.ToInt32(fields[6]);
+                    person.email = fields[7];
+                    list.Add(person);
+                    records.Add(fields[0], list);
+                }
+            }
+            return records;
         }
     }
 }

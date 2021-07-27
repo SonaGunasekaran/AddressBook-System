@@ -11,7 +11,7 @@ namespace AddressBook
             {
                 Console.WriteLine("1.Add New Contact \n2.List the contacts\n3.Edit datails\n4.Delete Contact\n5.Search by City or state\n6.View City or State\n7.Count City or State\n8.Sort Values\n9.Write into File");
                 Console.WriteLine("Enter an option:");
-                int choice = (Convert.ToInt32(Console.ReadLine()));
+                int choice =Convert.ToInt32(Console.ReadLine());
                 switch (choice)
                 {
                     case 1:
@@ -43,6 +43,8 @@ namespace AddressBook
                     case 9:
                         Contacts file = new Contacts();
                         file.WriteIntoFile();
+                        file.ReadFromCsvFile();
+                        file.WriteCsvFile();
                         break;
                     case 0:
                         Continue = false;
