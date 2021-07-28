@@ -45,6 +45,8 @@ namespace AddressBook
                         file.WriteIntoFile();
                         file.ReadFromCsvFile();
                         file.WriteCsvFile();
+                        file.ReadFromJsonFile();
+                        file.WriteIntoJsonFile();
                         break;
                     case 0:
                         Continue = false;
