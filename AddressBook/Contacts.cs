@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -272,6 +273,8 @@ namespace AddressBook
         //write the data into the file
         string filepath = @"C:\Users\Sona G\source\repos\AddressBook\AddressBook\Filetest.txt";
         string csvFile = @"C:\Users\Sona G\source\repos\AddressBook\AddressBook\FileCsvTest.csv";
+        string jsonFile = @"C:\Users\Sona G\source\repos\AddressBook\AddressBook\Person.json";
+
         public void WriteIntoFile()
         {
             if (File.Exists(filepath))
@@ -375,8 +378,21 @@ namespace AddressBook
             }
             return records;
         }
+        public void WriteIntoJsonFile()
+        {
+            foreach (KeyValuePair<string, List<Person>> i in dictionary)
+            {
+                File.WriteAllText(jsonFile, JsonConvert.SerializeObject(i.Value));
+            }
+        }
+        public Dictionary<string, List<Person>> ReadFromJsonFile()
+        {
+            Dictionary<string, List<Person>> records = JsonConvert.DeserializeObject<Dictionary<string, List<Person>>>(File.ReadAllText(jsonFile));
+            return records;
+        }
     }
 }
+
 
 
 
